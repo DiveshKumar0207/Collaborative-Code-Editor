@@ -29,18 +29,18 @@ const EditorPage: React.FC<Props> = () => {
 
         <div className="w-8/12 h-full bg-backgroundColor-dark absolute">
             {/* Files names and selection */}
-            <div className="w-full h-11 bg-gray-900 flex items-center border-t-2 border-b-2 border-t-black border-b-blue-700 px-9">
-                <span className="w-7 h-11 bg-backgroundColor-dark absolute left-0 hover:bg-black hover:text-textColor-high font-semibold text-xl text-textColor-medium flex text-center items-center justify-center">{"<"}</span>
-                <span className="w-7 h-11 bg-backgroundColor-dark absolute right-0 hover:bg-black hover:text-textColor-high text-center font-semibold text-xl text-textColor-medium flex items-center justify-center">{">"}</span>
-                <div className="h-9 flex bg-backgroundColor-dark box-border p-3 rounded-2xl text-textColor-medium items-center justify-center mx-1 cursor-pointer">main.rs</div>
-                <div className="h-9 flex bg-backgroundColor-dark box-border p-3 rounded-2xl text-textColor-high items-center justify-center mx-1 cursor-pointer border-blue-700 border">check.c</div>
-                <div className="h-9 flex bg-backgroundColor-dark box-border p-3 rounded-2xl text-textColor-medium items-center justify-center mx-1 cursor-pointer">sum.cpp</div>
-                <div className="h-9 w-9 flex bg-backgroundColor-dark box-border p-3 rounded-full text-textColor-high items-center justify-center mx-1 cursor-pointer">+</div>
+            <div className="w-full h-9 bg-gray-900 flex items-center border-t-2 border-b-2 border-t-black border-b-blue-700 px-9">
+                <span className="w-7 h-9 bg-backgroundColor-dark absolute left-0 hover:bg-black hover:text-textColor-high font-semibold text-xl text-textColor-medium flex text-center items-center justify-center">{"<"}</span>
+                <span className="w-7 h-9 bg-backgroundColor-dark absolute right-0 hover:bg-black hover:text-textColor-high text-center font-semibold text-xl text-textColor-medium flex items-center justify-center">{">"}</span>
+                <div className="h-7 flex bg-backgroundColor-dark box-border p-3 rounded-2xl text-textColor-medium items-center justify-center mr-1 cursor-pointer">main.rs</div>
+                <div className="h-9 flex bg-backgroundColor-dark box-border p-3 text-textColor-high items-center justify-center mr-1 cursor-pointer rounded-t-2xl translate-y-1">check.c</div>
+                <div className="h-7 flex bg-backgroundColor-dark box-border p-3 rounded-2xl text-textColor-medium items-center justify-center mr-1 cursor-pointer">sum.cpp</div>
+                <div className="h-7 w-7 flex bg-backgroundColor-dark box-border p-3 rounded-full text-textColor-high items-center justify-center mr-1 cursor-pointer">+</div>
             </div>
             {/* Textarea */}
             <div className="p pl-7 pr-2 pb-10">
                 <div className="h-full w-7 bg-black absolute left-0 shadow-lg"></div>
-                <textarea name="code" id="ta" rows={70} cols={95} className="bg-backgroundColor-dark h-full w-full pl-6 pb-8 text-textColor-medium outline-none"></textarea>
+                <textarea name="code" id="ta" rows={70} cols={95} className="bg-backgroundColor-dark h-full w-full pl-2 pb-8 pt-3 text-textColor-medium outline-none"></textarea>
             </div>
         </div>
         
