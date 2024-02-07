@@ -1,5 +1,6 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import React, { useState } from "react";
+// import AddFileForm from "./AddFileForm";
 
 interface Props {
   filename: string;
@@ -42,7 +43,7 @@ const HorizontalTabs: React.FC<Props> = ({ filename }) => {
             activeTab === index
               ? "text-textColor-high"
               : "text-textColor-medium"
-          } group box-border flex h-9 cursor-pointer items-center justify-center gap-2 border-[1px] border-b-0 border-[rgba(255,255,255,0.1)] bg-overlayDarkColors-dp01 px-2 text-base `}
+          } group box-border flex h-9 cursor-pointer items-center justify-center gap-2 rounded-sm border-[1px] border-b-0 border-[rgba(255,255,255,0.1)] bg-overlayDarkColors-dp01 px-2 text-base `}
           onClick={() => handleTabActive(index)}
         >
           {/* Icon for file type */}
@@ -77,6 +78,8 @@ const HorizontalTabs: React.FC<Props> = ({ filename }) => {
   return (
     <>
       {renderTabs()}
+
+      {/* <AddFileForm /> */}
 
       <div
         className="mx-2 box-border flex h-7 w-7 cursor-pointer items-center justify-center rounded-sm bg-overlayDarkColors-dp01 p-2 text-xl font-semibold text-textColor-high hover:bg-overlayDarkColors-dp06"

@@ -52,7 +52,7 @@ const AddFileForm: React.FC<Props> = () => {
   return (
     <>
       <div>
-        <Button type="button" onClick={openModal}>
+        <Button type="button" onClick={openModal} placeholder={undefined}>
           Add a note
         </Button>
       </div>
@@ -159,6 +159,7 @@ const AddFileForm: React.FC<Props> = () => {
                             color="red"
                             onClick={closeModal}
                             type="button"
+                            placeholder={undefined}
                           >
                             Cancel
                           </Button>
