@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
-import HorizontalTabs from "../components/editor/tabs/HorizontalTabs";
+import HorizontalTabs from "../components/workspace/fileTabs/HorizontalFileTabs";
+import Terminal from "../components/workspace/terminal/Terminal";
 
 interface Props {}
 
@@ -30,7 +31,7 @@ const EditorPage: React.FC<Props> = () => {
   };
 
   function moveTo(e: MouseEvent) {
-    // e.stopPropagation();
+    e.stopPropagation();
 
     editorRef.current!.style.width = e.clientX + "px";
     setSliderPosition();
@@ -63,15 +64,17 @@ const EditorPage: React.FC<Props> = () => {
         </ul>
       </div>
 
+      {/* Container of editor + textbox */}
       <div className="flex h-full w-full flex-auto gap-1 px-2">
+        {/* Editor Section  */}
         <div
-          className=" h-full min-w-[60%] max-w-[80%] flex-grow"
+          className=" h-full min-w-[60%] max-w-[80%] flex-grow rounded-md "
           ref={editorRef}
         >
-          {/* Files names and selection */}
+          {/* Files names and tabs and selection */}
           <div className="flex h-9 w-full items-center justify-between">
             <div className="flex items-center">
-              <span className=" flex h-9 w-7 cursor-pointer items-center justify-center bg-overlayDarkColors-dp01 text-center text-xl font-semibold text-textColor-medium hover:bg-black hover:text-textColor-high">
+              <span className=" invisible flex h-9 w-7 cursor-pointer items-center justify-center bg-overlayDarkColors-dp01 text-center text-xl font-semibold text-textColor-medium hover:bg-black hover:text-textColor-high">
                 {"<"}
               </span>
               {/* ------------Tab Horizontal section---------------- */}
@@ -82,25 +85,33 @@ const EditorPage: React.FC<Props> = () => {
             </div>
 
             <div>
-              <span className="flex h-9 w-7 cursor-pointer items-center justify-center  bg-overlayDarkColors-dp01 text-center text-xl font-semibold text-textColor-medium hover:bg-black hover:text-textColor-high">
+              <span className="invisible flex h-9 w-7 cursor-pointer items-center justify-center  bg-overlayDarkColors-dp01 text-center text-xl font-semibold text-textColor-medium hover:bg-black hover:text-textColor-high">
                 {">"}
               </span>
             </div>
           </div>
 
-          {/* Textarea */}
-          <div className=" pb-10 pl-7 ">
-            <div className="absolute left-0 h-full w-7   shadow-lg"></div>
-            <textarea
-              name="code"
-              id="ta"
-              rows={70}
-              cols={95}
-              title="Code editor"
-              placeholder="Enter code here"
-              className="h-full w-full bg-overlayDarkColors-dp01 p-4 pt-3 text-textColor-medium outline-none"
-            ></textarea>
+          {/* Textarea --- MAIN EDITOR */}
+          <div className="flex pb-10 ">
+            <div className="invisible w-7  bg-overlayDarkColors-dp01 "></div>
+            <div className="w-full border-l border-[rgba(255,255,255,0.1)] bg-transparent">
+              <textarea
+                name="code"
+                id="ta"
+                rows={70}
+                cols={95}
+                title="Code editor"
+                placeholder="Enter code here"
+                className="h-full w-full rounded-r-lg bg-overlayDarkColors-dp01 p-4 text-textColor-medium outline-none"
+              ></textarea>
+            </div>
           </div>
+
+          {/* ------------Terminal Section---------------- */}
+
+          <Terminal />
+
+          {/* ------------Terminal Section---------------- */}
         </div>
 
         {/* Virtual divider to seperate worksapce*/}
@@ -114,7 +125,7 @@ const EditorPage: React.FC<Props> = () => {
         </div>
 
         {/* CHAT AREA, FILES SECTION */}
-        <div className="h-full min-w-[20%] max-w-[40%] flex-grow bg-overlayDarkColors-dp01"></div>
+        <div className="h-full min-w-[20%] max-w-[40%] flex-grow rounded-lg bg-overlayDarkColors-dp01"></div>
       </div>
     </div>
   );

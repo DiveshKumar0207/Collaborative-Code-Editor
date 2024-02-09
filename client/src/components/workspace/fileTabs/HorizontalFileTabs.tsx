@@ -7,44 +7,43 @@ interface Props {
 }
 
 const HorizontalTabs: React.FC<Props> = ({ filename }) => {
-  const [activeTab, setactiveTab] = useState<number | null>(null);
-  const [tabs, setTabs] = useState(["Tab 1"]);
+  const [activeFileTab, setActiveFileTab] = useState<number | null>(null);
+  const [allFileTabs, setAllFileTabs] = useState(["Tab 1"]);
 
-  const handleTabActive = (tabIndex: number) => {
-    // if activeTab === tabindex, then makes it null or otherwise make active value to tabindex; tabindex is key of that tab
-    // Set the active tab only if clicking on a non-active tab
-    setactiveTab((prevActiveTab) =>
-      prevActiveTab === tabIndex ? null : tabIndex,
+  const handleFileTabActive = (tabIndex: number) => {
+    setActiveFileTab((prevActiveFileTab) =>
+      prevActiveFileTab === tabIndex ? null : tabIndex,
     );
   };
 
-  const handleAddTabs = () => {
-    const newTab = `Tab ${tabs.length + 1}`;
-    setTabs([...tabs, newTab]);
+  const handleAddFileTabs = () => {
+    const newFileTab = `Tab ${allFileTabs.length + 1}`;
+    // setAllFileTabs([...allFileTabs, newFileTab]);
+    setAllFileTabs(allFileTabs.concat(newFileTab));
   };
 
-  const handleCloseTabs = (tabIndex: number) => {
-    const requiredTab = `Tab ${tabIndex}`;
-    const newTabs = tabs.filter((tab) => {
-      return tab !== requiredTab;
+  const handleCloseFileTabs = (tabIndex: number) => {
+    const requiredFileTab = `Tab ${tabIndex}`;
+    const newFileTabs = allFileTabs.filter((fileTab) => {
+      return fileTab !== requiredFileTab;
     });
-    setTabs(newTabs);
+    setAllFileTabs(newFileTabs);
 
     //reset active state
-    if (activeTab === tabIndex) setactiveTab(null);
+    if (activeFileTab === tabIndex) setActiveFileTab(null);
   };
 
   const renderTabs = () => {
-    return tabs.map((tab, index) => {
+    return allFileTabs.map((tab, index) => {
       return (
         <div
           key={index}
           className={` ${
-            activeTab === index
+            activeFileTab === index
               ? "text-textColor-high"
               : "text-textColor-medium"
-          } group box-border flex h-9 cursor-pointer items-center justify-center gap-2 rounded-sm border-[1px] border-b-0 border-[rgba(255,255,255,0.1)] bg-overlayDarkColors-dp01 px-2 text-base `}
-          onClick={() => handleTabActive(index)}
+          } group box-border flex h-9 cursor-pointer items-center justify-center rounded-t-md border-[1px] border-b-0 border-[rgba(255,255,255,0.1)] bg-overlayDarkColors-dp01 px-2 text-base `}
+          onClick={() => handleFileTabActive(index)}
         >
           {/* Icon for file type */}
           <span className=" flex h-6 w-6 items-center justify-center p-1 font-semibold">
@@ -58,13 +57,13 @@ const HorizontalTabs: React.FC<Props> = ({ filename }) => {
           <span
             className="flex h-6 w-6 items-center justify-center rounded-md p-1 font-semibold hover:bg-overlayDarkColors-dp06"
             onClick={() => {
-              handleCloseTabs(index);
+              handleCloseFileTabs(index);
             }}
           >
             <XMarkIcon
               strokeWidth={2.5}
               className={`h-4 w-4 font-semibold ${
-                activeTab === index
+                activeFileTab === index
                   ? "visible"
                   : "invisible group-hover:visible"
               }`}
@@ -83,7 +82,7 @@ const HorizontalTabs: React.FC<Props> = ({ filename }) => {
 
       <div
         className="mx-2 box-border flex h-7 w-7 cursor-pointer items-center justify-center rounded-sm bg-overlayDarkColors-dp01 p-2 text-xl font-semibold text-textColor-high hover:bg-overlayDarkColors-dp06"
-        onClick={handleAddTabs}
+        onClick={handleAddFileTabs}
       >
         +
       </div>
