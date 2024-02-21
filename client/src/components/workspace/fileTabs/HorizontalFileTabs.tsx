@@ -46,7 +46,7 @@ const HorizontalTabs: React.FC<Props> = ({ filename }) => {
           onClick={() => handleFileTabActive(index)}
         >
           {/* Icon for file type */}
-          <span className=" flex h-6 w-6 items-center justify-center p-1 font-semibold">
+          <span className=" flex h-6 w-6 select-none items-center justify-center p-1 font-semibold">
             m
           </span>
 
@@ -55,7 +55,7 @@ const HorizontalTabs: React.FC<Props> = ({ filename }) => {
 
           {/* Close the file */}
           <span
-            className="flex h-6 w-6 items-center justify-center rounded-md p-1 font-semibold hover:bg-overlayDarkColors-dp06"
+            className="flex h-6 w-6 select-none items-center justify-center rounded-md p-1 font-semibold hover:bg-overlayDarkColors-dp06"
             onClick={() => {
               handleCloseFileTabs(index);
             }}
@@ -81,7 +81,7 @@ const HorizontalTabs: React.FC<Props> = ({ filename }) => {
       {/* <AddFileForm /> */}
 
       <div
-        className="mx-2 box-border flex h-7 w-7 cursor-pointer items-center justify-center rounded-sm bg-overlayDarkColors-dp01 p-2 text-xl font-semibold text-textColor-high hover:bg-overlayDarkColors-dp06"
+        className="mx-2 box-border flex h-7 w-7 cursor-pointer select-none items-center justify-center rounded-sm bg-overlayDarkColors-dp01 p-2 text-xl font-semibold text-textColor-high hover:bg-overlayDarkColors-dp06"
         onClick={handleAddFileTabs}
       >
         +

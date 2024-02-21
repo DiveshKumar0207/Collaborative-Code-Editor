@@ -10,7 +10,7 @@ const EditorPage: React.FC<Props> = () => {
 
   const setSliderPosition = () => {
     const editorWidth = editorRef.current!.offsetWidth;
-
+    // console.log(editorWidth);
     sliderRef.current!.style.left = `${editorWidth + 11}px`;
   };
 
@@ -31,7 +31,7 @@ const EditorPage: React.FC<Props> = () => {
   };
 
   function moveTo(e: MouseEvent) {
-    e.stopPropagation();
+    // e.stopPropagation();
 
     editorRef.current!.style.width = e.clientX + "px";
     setSliderPosition();
@@ -47,7 +47,7 @@ const EditorPage: React.FC<Props> = () => {
       style={{ fontFamily: "Ubuntu" }}
     >
       {/* Header */}
-      <div className="z-50 h-10 bg-backgroundColor-dark">
+      <div className="z-50 h-10 select-none bg-backgroundColor-dark">
         <div className="absolute left-0 h-5 w-12 bg-blue-800 text-center font-semibold text-textColor-high">
           CCE
         </div>
@@ -109,6 +109,7 @@ const EditorPage: React.FC<Props> = () => {
 
           {/* ------------Terminal Section---------------- */}
 
+          {/* <Terminal editorRect={editorRef} /> */}
           <Terminal />
 
           {/* ------------Terminal Section---------------- */}
