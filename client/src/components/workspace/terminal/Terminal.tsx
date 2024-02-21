@@ -2,12 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import { ChevronUpIcon } from "@heroicons/react/24/outline";
 
 interface Props {
-  // editorRect: RefObject<HTMLDivElement> | null;
+  editorWidth: string | null;
 }
 
-const Terminal: React.FC<Props> = () => {
+const Terminal: React.FC<Props> = ({ editorWidth }) => {
   const terminalRef = useRef<HTMLDivElement | null>(null);
-  // let editorWidth = useRef();
   const [isTerminalOpen, SetIsTerminalOpen] = useState<boolean>(false);
   const [terminalHeight, SetTerminalHeight] = useState(240);
 
@@ -22,9 +21,9 @@ const Terminal: React.FC<Props> = () => {
       SetIsTerminalOpen(false);
     }
   }
+
   function moveTo(e: MouseEvent) {
     const newTerminalHeight = window.innerHeight - e.clientY;
-    console.log(newTerminalHeight);
 
     if (newTerminalHeight <= 15) {
       SetIsTerminalOpen(() => false);
@@ -33,6 +32,7 @@ const Terminal: React.FC<Props> = () => {
     if (newTerminalHeight <= 500 && newTerminalHeight >= 0)
       SetTerminalHeight(() => newTerminalHeight);
   }
+
   function handleMouseDown() {
     document.addEventListener("mousemove", moveTo);
 
@@ -45,10 +45,8 @@ const Terminal: React.FC<Props> = () => {
     );
   }
 
-  // editorWidth = editorRect.current?.getBoundingClientRect().width;
-  // console.log(editorWidth);
   useEffect(() => {
-    // console.log(editorRect.current?.getBoundingClientRect());
+    console.log("terminal--" + editorWidth);
   }, []);
 
   return (
@@ -56,7 +54,7 @@ const Terminal: React.FC<Props> = () => {
       <div
         className="absolute bottom-0 left-9"
         style={{
-          width: `1169px`,
+          width: `${editorWidth}`,
         }}
       >
         {/* horizontal divider */}

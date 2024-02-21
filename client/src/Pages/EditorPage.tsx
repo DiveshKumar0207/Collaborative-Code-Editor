@@ -1,49 +1,67 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import HorizontalTabs from "../components/workspace/fileTabs/HorizontalFileTabs";
 import Terminal from "../components/workspace/terminal/Terminal";
 
 interface Props {}
 
 const EditorPage: React.FC<Props> = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<HTMLDivElement>(null);
-  const sliderRef = useRef<HTMLDivElement>(null);
-
-  const setSliderPosition = () => {
-    const editorWidth = editorRef.current!.offsetWidth;
-    // console.log(editorWidth);
-    sliderRef.current!.style.left = `${editorWidth + 11}px`;
-  };
-
-  useEffect(() => {
-    setSliderPosition();
-    window.addEventListener("resize", setSliderPosition);
-    return () => {
-      window.removeEventListener("resize", setSliderPosition);
-    };
-  }, []);
+  const chatRef = useRef<HTMLDivElement>(null);
+  const [editorWidth, SetEditorWidth] = useState<number>(0);
+  const minPercentage = 60;
+  const maxPercentage = 80;
 
   const handleMouseDown = () => {
     // Start resizing immediately on double-click
     document.addEventListener("mousemove", moveTo);
 
     // Remove the mousemove event listener when the mouse button is released
-    document.addEventListener("mouseup", handleMouseUp, { once: true });
+    document.addEventListener(
+      "mouseup",
+      () => {
+        document.removeEventListener("mousemove", moveTo);
+      },
+      { once: true },
+    );
   };
 
   function moveTo(e: MouseEvent) {
-    // e.stopPropagation();
+    const containerWidth = containerRef.current?.offsetWidth || 0;
+    const newWidthPercentage = (e.clientX / containerWidth) * 100;
 
-    editorRef.current!.style.width = e.clientX + "px";
-    setSliderPosition();
+    if (
+      newWidthPercentage >= minPercentage &&
+      newWidthPercentage <= maxPercentage
+    ) {
+      const newEditorWdith = e.clientX;
+
+      SetEditorWidth(() => newEditorWdith);
+
+      const remainigWidth = containerWidth - newEditorWdith;
+      const chatContainerWidth = remainigWidth - 2; // subtracting divider width
+      chatRef.current!.style.width = `${chatContainerWidth}px`;
+    }
   }
 
-  const handleMouseUp = () => {
-    document.removeEventListener("mousemove", moveTo);
-  };
+  useEffect(() => {
+    const initialPercentage = 60;
+    const containerWidth = containerRef.current?.offsetWidth || 0;
+    const initialWidth = (initialPercentage / 100) * containerWidth;
+    SetEditorWidth(initialWidth);
+
+    console.log(initialPercentage);
+    console.log("initial width" + initialWidth);
+
+    // Calculate the initial width of the second div based on the remaining space
+    const remainingWidth = containerWidth - initialWidth;
+    const chatContainerWidth = remainingWidth - 2;
+    chatRef.current!.style.width = `${chatContainerWidth}px`;
+  }, []);
 
   return (
     <div
-      className="font fixed h-full max-h-screen w-full bg-backgroundColor-dark "
+      className="font fixed h-full max-h-screen w-[100vw] bg-backgroundColor-dark "
       style={{ fontFamily: "Ubuntu" }}
     >
       {/* Header */}
@@ -65,10 +83,14 @@ const EditorPage: React.FC<Props> = () => {
       </div>
 
       {/* Container of editor + textbox */}
-      <div className="flex h-full w-full flex-auto gap-1 px-2">
+      <div
+        className="flex h-full w-full flex-auto gap-1 px-2"
+        ref={containerRef}
+      >
         {/* Editor Section  */}
         <div
-          className=" h-full min-w-[60%] max-w-[80%] flex-grow rounded-md "
+          className=" h-full rounded-md "
+          style={{ width: `${editorWidth}px` }}
           ref={editorRef}
         >
           {/* Files names and tabs and selection */}
@@ -109,8 +131,7 @@ const EditorPage: React.FC<Props> = () => {
 
           {/* ------------Terminal Section---------------- */}
 
-          {/* <Terminal editorRect={editorRef} /> */}
-          <Terminal />
+          <Terminal editorWidth={`${editorWidth - 42}px`} />
 
           {/* ------------Terminal Section---------------- */}
         </div>
@@ -118,15 +139,17 @@ const EditorPage: React.FC<Props> = () => {
         {/* Virtual divider to seperate worksapce*/}
         <div className={` flex h-full w-[2px] items-center`}>
           <div
-            className={`absolute top-[50%] h-28 w-[1.5px]  cursor-ew-resize bg-blue-800 px-[1px] opacity-70 
+            className={`h-28 w-[1.5px]  cursor-ew-resize bg-blue-700 px-[1px] opacity-70 hover:opacity-100
             `}
-            ref={sliderRef}
             onMouseDown={handleMouseDown}
           ></div>
         </div>
 
         {/* CHAT AREA, FILES SECTION */}
-        <div className="h-full min-w-[20%] max-w-[40%] flex-grow rounded-lg bg-overlayDarkColors-dp01"></div>
+        <div
+          className="h-full min-w-[20%] rounded-lg bg-overlayDarkColors-dp01"
+          ref={chatRef}
+        ></div>
       </div>
     </div>
   );
