@@ -35,9 +35,9 @@ const EditorPage: React.FC<Props> = () => {
       newWidthPercentage <= maxPercentage
     ) {
       const newEditorWdith = e.clientX;
-
       SetEditorWidth(() => newEditorWdith);
 
+      // calculating chat-section width and setting its width
       const remainigWidth = containerWidth - newEditorWdith;
       const chatContainerWidth = remainigWidth - 2; // subtracting divider width
       chatRef.current!.style.width = `${chatContainerWidth}px`;
@@ -47,16 +47,13 @@ const EditorPage: React.FC<Props> = () => {
   useEffect(() => {
     const initialPercentage = 60;
     const containerWidth = containerRef.current?.offsetWidth || 0;
-    const initialWidth = (initialPercentage / 100) * containerWidth;
-    SetEditorWidth(initialWidth);
+    const initialEditorWidth = (initialPercentage / 100) * containerWidth;
+    SetEditorWidth(initialEditorWidth);
 
-    console.log(initialPercentage);
-    console.log("initial width" + initialWidth);
-
-    // Calculate the initial width of the second div based on the remaining space
-    const remainingWidth = containerWidth - initialWidth;
-    const chatContainerWidth = remainingWidth - 2;
-    chatRef.current!.style.width = `${chatContainerWidth}px`;
+    // Calculate the initial width of the chat div based on the remaining space
+    const remainingWidth = containerWidth - initialEditorWidth;
+    const initialChatContainerWidth = remainingWidth - 2;
+    chatRef.current!.style.width = `${initialChatContainerWidth}px`;
   }, []);
 
   return (
@@ -101,7 +98,7 @@ const EditorPage: React.FC<Props> = () => {
               </span>
               {/* ------------Tab Horizontal section---------------- */}
 
-              <HorizontalTabs filename="helo.c" />
+              <HorizontalTabs />
 
               {/* ----------- Tab Horizontal section closed ------------- */}
             </div>

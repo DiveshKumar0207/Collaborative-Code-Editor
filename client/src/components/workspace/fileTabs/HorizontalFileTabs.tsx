@@ -1,40 +1,28 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import React, { useState } from "react";
-// import AddFileForm from "./AddFileForm";
+import React, { useContext } from "react";
+import AddFileForm from "./AddFileForm";
+import WorkspaceContext from "../../../context/workspace/WorkspaceContext";
 
-interface Props {
-  filename: string;
-}
+interface Props {}
 
-const HorizontalTabs: React.FC<Props> = ({ filename }) => {
-  const [activeFileTab, setActiveFileTab] = useState<number | null>(null);
-  const [allFileTabs, setAllFileTabs] = useState(["Tab 1"]);
-
-  const handleFileTabActive = (tabIndex: number) => {
-    setActiveFileTab((prevActiveFileTab) =>
-      prevActiveFileTab === tabIndex ? null : tabIndex,
+const HorizontalTabs: React.FC<Props> = () => {
+  const workspaceContext = useContext(WorkspaceContext);
+  if (!workspaceContext) {
+    throw new Error(
+      "WorkspaceContext or WorkspaceContextType is undefined. Make sure WorkspaceStates is a parent.",
     );
-  };
+  }
 
-  const handleAddFileTabs = () => {
-    const newFileTab = `Tab ${allFileTabs.length + 1}`;
-    // setAllFileTabs([...allFileTabs, newFileTab]);
-    setAllFileTabs(allFileTabs.concat(newFileTab));
-  };
-
-  const handleCloseFileTabs = (tabIndex: number) => {
-    const requiredFileTab = `Tab ${tabIndex}`;
-    const newFileTabs = allFileTabs.filter((fileTab) => {
-      return fileTab !== requiredFileTab;
-    });
-    setAllFileTabs(newFileTabs);
-
-    //reset active state
-    if (activeFileTab === tabIndex) setActiveFileTab(null);
-  };
+  const {
+    openAddNewFileModal,
+    activeFileTab,
+    allFileTabs,
+    handleCloseFileTabs,
+    handleFileTabActive,
+  } = workspaceContext;
 
   const renderTabs = () => {
-    return allFileTabs.map((tab, index) => {
+    return allFileTabs.map((fileTab, index) => {
       return (
         <div
           key={index}
@@ -51,7 +39,9 @@ const HorizontalTabs: React.FC<Props> = ({ filename }) => {
           </span>
 
           {/* File's name */}
-          <span className="flex h-6 items-center p-1">{filename}</span>
+          <span className="flex h-6 items-center p-1">
+            {`${fileTab.filename}.${fileTab.file_extention}`}
+          </span>
 
           {/* Close the file */}
           <span
@@ -78,11 +68,11 @@ const HorizontalTabs: React.FC<Props> = ({ filename }) => {
     <>
       {renderTabs()}
 
-      {/* <AddFileForm /> */}
+      <AddFileForm />
 
       <div
         className="mx-2 box-border flex h-7 w-7 cursor-pointer select-none items-center justify-center rounded-sm bg-overlayDarkColors-dp01 p-2 text-xl font-semibold text-textColor-high hover:bg-overlayDarkColors-dp06"
-        onClick={handleAddFileTabs}
+        onClick={openAddNewFileModal}
       >
         +
       </div>

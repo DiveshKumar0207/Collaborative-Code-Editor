@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { ChevronUpIcon } from "@heroicons/react/24/outline";
 
 interface Props {
@@ -44,10 +44,6 @@ const Terminal: React.FC<Props> = ({ editorWidth }) => {
       { once: true },
     );
   }
-
-  useEffect(() => {
-    console.log("terminal--" + editorWidth);
-  }, []);
 
   return (
     <>

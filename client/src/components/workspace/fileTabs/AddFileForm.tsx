@@ -1,12 +1,13 @@
 // NOTE :
 // A DIALOG MADE BY EDITTING 'headlessui/react' with 'material-tailwind'
-// FORMIK AND YUP FOR STATE-MANAGEMENT AND VALIDATION
+// FORMIK AND YUP FOR STATE-MANAGEMENT AND VALIDATION of FORM
 
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useContext } from "react";
 import { Button, Input } from "@material-tailwind/react";
 import { Formik, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
+import WorkspaceContext from "../../../context/workspace/WorkspaceContext";
 
 const validationSchema = Yup.object({
   filename: Yup.string()
@@ -25,14 +26,15 @@ interface Values {
 // ======================================================================================================
 
 const AddFileForm: React.FC<Props> = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const workspaceContext = useContext(WorkspaceContext);
+  if (!workspaceContext) {
+    throw new Error(
+      "WorkspaceContext or WorkspaceContextType is undefined. Make sure WorkspaceStates is a parent.",
+    );
+  }
 
-  function closeModal() {
-    setIsOpen(false);
-  }
-  function openModal() {
-    setIsOpen(true);
-  }
+  const { isAddNewFileModal, closeAddNewFileModal, handleAddFileTabs } =
+    workspaceContext;
 
   const initialValues: Values = {
     filename: "",
@@ -43,22 +45,32 @@ const AddFileForm: React.FC<Props> = () => {
     values: Values,
     { setSubmitting }: FormikHelpers<Values>,
   ) => {
-    // Handle  submission logic here
+    // Handle  submission logic here()
+
+    handleAddFileTabs(values);
 
     setSubmitting(false);
-    closeModal();
+    closeAddNewFileModal();
   };
 
   return (
     <>
-      <div>
-        <Button type="button" onClick={openModal} placeholder={undefined}>
+      {/* <div>
+        <Button
+          type="button"
+          onClick={openAddNewFileModal}
+          placeholder={undefined}
+        >
           Add a note
         </Button>
-      </div>
+      </div> */}
 
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+      <Transition appear show={isAddNewFileModal} as={Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-10"
+          onClose={closeAddNewFileModal}
+        >
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -96,7 +108,7 @@ const AddFileForm: React.FC<Props> = () => {
                       viewBox="0 0 24 24"
                       fill="currentColor"
                       className="mr-3 h-5 w-5 cursor-pointer"
-                      onClick={closeModal}
+                      onClick={closeAddNewFileModal}
                     >
                       <path
                         fillRule="evenodd"
@@ -157,7 +169,7 @@ const AddFileForm: React.FC<Props> = () => {
                           <Button
                             variant="text"
                             color="red"
-                            onClick={closeModal}
+                            onClick={closeAddNewFileModal}
                             type="button"
                             placeholder={undefined}
                           >
