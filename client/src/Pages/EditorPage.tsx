@@ -41,20 +41,20 @@ const EditorPage: React.FC<Props> = () => {
 
       // calculating chat-section width and setting its width
       const remainigWidth = containerWidth - newEditorWdith;
-      const chatContainerWidth = remainigWidth - 2; // subtracting divider width
+      const chatContainerWidth = remainigWidth - 2 - 8; // subtracting divider width and gap given the flexbox
       chatRef.current!.style.width = `${chatContainerWidth}px`;
     }
   }
 
   useEffect(() => {
-    const initialPercentage = 60;
-    const containerWidth = containerRef.current?.offsetWidth || 0;
+    const initialPercentage = 70;
+    const containerWidth = containerRef.current!.offsetWidth || 0;
     const initialEditorWidth = (initialPercentage / 100) * containerWidth;
-    SetEditorWidth(initialEditorWidth);
+    SetEditorWidth(() => initialEditorWidth);
 
     // Calculate the initial width of the chat div based on the remaining space
     const remainingWidth = containerWidth - initialEditorWidth;
-    const initialChatContainerWidth = remainingWidth - 2;
+    const initialChatContainerWidth = remainingWidth - 2 - 8; // subtracting divider width and gap given the flexbox
     chatRef.current!.style.width = `${initialChatContainerWidth}px`;
   }, []);
 
@@ -82,19 +82,17 @@ const EditorPage: React.FC<Props> = () => {
       </div>
 
       {/* Container of editor + chatbox */}
-      <div className="flex h-full w-full gap-1 px-2" ref={containerRef}>
+      {/* //! as using offset... here i use margin, but unexpected behaviour by chatareadiv seems crossed viewport. but same i use with padding here than it wont affect chatbotdiv, but rather now  will affect the partition nd width in center. */}
+      <div
+        className="mx-2 flex h-full w-full flex-auto gap-1"
+        ref={containerRef}
+      >
         {/* IDE Section  */}
-        {/* //! //TODO  why its not taking its full width ? causes trouble in new file tab adds. then this extends its original width   */}
         <div
           className="flex h-full rounded-md"
           style={{ width: `${editorWidth}px` }}
           ref={editorRef}
         >
-          {/* aside - Vertical tabs*/}
-          {/*  TODO - change this minimum width in future and give proper width. give tailwind w-10 */}
-
-          <div className="flex h-full min-w-[48px] border-r border-t border-[rgba(255,255,255,0.1)]  bg-overlayDarkColors-dp06"></div>
-
           <div className="h-full w-full">
             {/* Files names and tabs and selection */}
             <EditorHeader />
@@ -106,7 +104,6 @@ const EditorPage: React.FC<Props> = () => {
 
           {/* ------------Terminal Section---------------- */}
 
-          {/* <Terminal editorWidth={`${editorWidth - 62.5}px`} /> */}
           <Terminal editorWidth={`${editorWidth}px`} />
         </div>
 
@@ -121,7 +118,7 @@ const EditorPage: React.FC<Props> = () => {
 
         {/* CHAT AREA, FILES SECTION */}
         <div
-          className="flex h-full flex-grow rounded-lg bg-overlayDarkColors-dp06"
+          className="flex h-full min-w-[20%] flex-grow rounded-lg bg-overlayDarkColors-dp06"
           ref={chatRef}
         ></div>
       </div>

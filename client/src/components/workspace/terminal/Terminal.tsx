@@ -54,7 +54,8 @@ const Terminal: React.FC<Props> = ({ editorWidth }) => {
   return (
     <>
       <div
-        className="absolute bottom-0 left-[56px]"
+        // className="absolute bottom-0 left-[56px]"
+        className="absolute bottom-0 left-2"
         role="Terminal"
         style={{
           width: `${editorWidth}`,
