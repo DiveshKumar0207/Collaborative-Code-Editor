@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,6 +12,70 @@
 
     }
 
+    .active-top-border {
+        border-top: 1px solid rgb(239, 83, 80);
+        border-right: 1px right rgba(255, 255, 255, 0.2);
+
+    }
+
+    /* Custom scrollbar for tabs */
+    .custom-x-scrollbar {
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scrollbar-gutter: always;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        /* scrollbar-width: thin; */
+        /* scrollbar-color: #4A5568 transparent; */
+        /* scrollbar-color: transparent transparent; */
+
+    }
+
+    .custom-x-scrollbar::-webkit-scrollbar {
+        width: none;
+        height: 3px;
+    }
+
+    .custom-x-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #2D3748;
+        border-radius: 30px;
+
+    }
+
+    .custom-x-scrollbar::-webkit-scrollbar-track {
+        background-color: transparent;
+
+    }
+
+    /* Custom scrollbar for editor nd terminal */
+    .custom-y-scrollbar {
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+        scrollbar-gutter: always;
+        scrollbar-width: thin;
+        scrollbar-color: #4A5568 transparent;
+
+        scrollbar-width: 10px;
+        -ms-overflow-style: 10px;
+    }
+
+    .custom-y-scrollbar::-webkit-scrollbar {
+        width: 10px;
+        height: 5px;
+    }
+
+    .custom-y-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #4A5568;
+        border-radius: 10px;
+    }
+
+    .custom-y-scrollbar::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300..900&display=swap')
+/* @font-face {
+    font-family: "Oswald";
+    src: url("../public/fonts/Oswald-VariableFont_wght.ttf");
+} */

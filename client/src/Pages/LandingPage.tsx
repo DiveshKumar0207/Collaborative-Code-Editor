@@ -19,7 +19,7 @@ const LandingPage: React.FC<Props> = () => {
               Execution!
             </div>
             <div className=" p-3 text-center text-lg">
-              <span className="font-['Frank Ruhl Libre',serif] font-bold text-pink-600">
+              <span className="font-Frank Ruhl Libre font-bold text-pink-600">
                 RUST
               </span>
               <span className="font-['Inter'] font-semibold text-pink-600">
@@ -49,7 +49,7 @@ const LandingPage: React.FC<Props> = () => {
 
           <div className="flex justify-between">
             <div className="flex h-[305px] w-[248px] flex-col items-center  rounded-lg border-4 border-white">
-              <div className="clipPath-homePage h-4/6 w-full overflow-hidden "></div>
+              <div className="clipPath-homePage h-4/6 w-full overflow-hidden bg-red-100 "></div>
               hy
             </div>
             <div className="flex w-12 flex-col justify-end gap-8 border-2 border-red-300">

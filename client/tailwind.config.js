@@ -12,6 +12,9 @@ export default withMT({
 
   theme: {
     extend: {
+      fontFamily: {
+        "Frank Ruhl Libre": ["Frank Ruhl Libre", "sans-serif"],
+      },
       screens: {
         "md-max": { max: "720px" },
       },
@@ -19,6 +22,7 @@ export default withMT({
       colors: {
         backgroundColor: {
           dark: "#121212",
+          "dark-secondary": "#212121",
           light: "#ffffff",
         },
 
@@ -27,7 +31,6 @@ export default withMT({
           medium: "rgba(255, 255, 255, 0.6)",
           disabled: "rgba(255, 255, 255, 0.38)",
         },
-
 
         overlayDarkColors: {
           dp00: "rgba(255, 255, 255, 0)",
@@ -49,8 +52,6 @@ export default withMT({
 
         black: "#000000",
         white: "#ffffff",
-
-    
       },
     },
   },

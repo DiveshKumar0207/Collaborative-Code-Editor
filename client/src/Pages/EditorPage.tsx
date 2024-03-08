@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import HorizontalTabs from "../components/workspace/fileTabs/HorizontalFileTabs";
 import Terminal from "../components/workspace/terminal/Terminal";
+import EditorArea from "../components/workspace/editor/editorArea";
+import EditorHeader from "../components/workspace/fileTabs/EditorHeader";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 
 interface Props {}
 
@@ -62,75 +64,50 @@ const EditorPage: React.FC<Props> = () => {
       style={{ fontFamily: "Ubuntu" }}
     >
       {/* Header */}
-      <div className="z-50 h-10 select-none bg-backgroundColor-dark">
-        <div className="absolute left-0 h-5 w-12 bg-blue-800 text-center font-semibold text-textColor-high">
-          CCE
+      <div className="z-50 flex h-10 select-none bg-backgroundColor-dark px-2">
+        <div className="flex h-full w-10 cursor-pointer items-center justify-center text-center font-semibold text-textColor-high">
+          <Bars3Icon className=" h-6 w-6 font-semibold" />
         </div>
-        <ul className="flex h-full items-center justify-start px-16 text-sm text-textColor-medium">
-          <li className="inline cursor-pointer pr-4 hover:text-textColor-high">
+        <ul className="flex h-full items-center justify-start gap-3 pl-1 text-sm text-textColor-medium">
+          <li className="inline cursor-pointer hover:text-textColor-high">
             New File
           </li>
-          <li className="inline cursor-pointer pr-4 hover:text-textColor-high">
+          <li className="inline cursor-pointer hover:text-textColor-high">
             Share
           </li>
-          <li className="inline cursor-pointer pr-4 hover:text-textColor-high">
+          <li className="inline cursor-pointer hover:text-textColor-high">
             Sync
           </li>
         </ul>
       </div>
 
-      {/* Container of editor + textbox */}
-      <div
-        className="flex h-full w-full flex-auto gap-1 px-2"
-        ref={containerRef}
-      >
-        {/* Editor Section  */}
+      {/* Container of editor + chatbox */}
+      <div className="flex h-full w-full gap-1 px-2" ref={containerRef}>
+        {/* IDE Section  */}
+        {/* //! //TODO  why its not taking its full width ? causes trouble in new file tab adds. then this extends its original width   */}
         <div
-          className=" h-full rounded-md "
+          className="flex h-full rounded-md"
           style={{ width: `${editorWidth}px` }}
           ref={editorRef}
         >
-          {/* Files names and tabs and selection */}
-          <div className="flex h-9 w-full items-center justify-between">
-            <div className="flex items-center">
-              <span className=" invisible flex h-9 w-7 cursor-pointer items-center justify-center bg-overlayDarkColors-dp01 text-center text-xl font-semibold text-textColor-medium hover:bg-black hover:text-textColor-high">
-                {"<"}
-              </span>
-              {/* ------------Tab Horizontal section---------------- */}
+          {/* aside - Vertical tabs*/}
+          {/*  TODO - change this minimum width in future and give proper width. give tailwind w-10 */}
 
-              <HorizontalTabs />
+          <div className="flex h-full min-w-[48px] border-r border-t border-[rgba(255,255,255,0.1)]  bg-overlayDarkColors-dp06"></div>
 
-              {/* ----------- Tab Horizontal section closed ------------- */}
-            </div>
+          <div className="h-full w-full">
+            {/* Files names and tabs and selection */}
+            <EditorHeader />
 
-            <div>
-              <span className="invisible flex h-9 w-7 cursor-pointer items-center justify-center  bg-overlayDarkColors-dp01 text-center text-xl font-semibold text-textColor-medium hover:bg-black hover:text-textColor-high">
-                {">"}
-              </span>
-            </div>
-          </div>
+            {/* --- MAIN EDITOR --- */}
 
-          {/* Textarea --- MAIN EDITOR */}
-          <div className="flex pb-10 ">
-            <div className="invisible w-7  bg-overlayDarkColors-dp01 "></div>
-            <div className="w-full border-l border-[rgba(255,255,255,0.1)] bg-transparent">
-              <textarea
-                name="code"
-                id="ta"
-                rows={70}
-                cols={95}
-                title="Code editor"
-                placeholder="Enter code here"
-                className="h-full w-full rounded-r-lg bg-overlayDarkColors-dp01 p-4 text-textColor-medium outline-none"
-              ></textarea>
-            </div>
+            <EditorArea />
           </div>
 
           {/* ------------Terminal Section---------------- */}
 
-          <Terminal editorWidth={`${editorWidth - 42}px`} />
-
-          {/* ------------Terminal Section---------------- */}
+          {/* <Terminal editorWidth={`${editorWidth - 62.5}px`} /> */}
+          <Terminal editorWidth={`${editorWidth}px`} />
         </div>
 
         {/* Virtual divider to seperate worksapce*/}
@@ -144,7 +121,7 @@ const EditorPage: React.FC<Props> = () => {
 
         {/* CHAT AREA, FILES SECTION */}
         <div
-          className="h-full min-w-[20%] rounded-lg bg-overlayDarkColors-dp01"
+          className="flex h-full flex-grow rounded-lg bg-overlayDarkColors-dp06"
           ref={chatRef}
         ></div>
       </div>

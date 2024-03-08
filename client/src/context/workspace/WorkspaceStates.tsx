@@ -23,9 +23,9 @@ const WorkspaceStates: React.FC<MyContextProviderProps> = ({ children }) => {
   const [activeFileTab, setActiveFileTab] = useState<number | null>(null);
   const [allFileTabs, setAllFileTabs] = useState<filesTab[]>([]);
 
-  const handleFileTabActive = (tabIndex: number) => {
+  const handleFileTabActive = (tabId: number) => {
     setActiveFileTab((prevActiveFileTab) =>
-      prevActiveFileTab === tabIndex ? null : tabIndex,
+      prevActiveFileTab === tabId ? null : tabId,
     );
   };
 
@@ -34,19 +34,26 @@ const WorkspaceStates: React.FC<MyContextProviderProps> = ({ children }) => {
       ...values,
       _id: `${allFileTabs.length + 1}`,
     };
+
     // setAllFileTabs(allFileTabs.concat(newFileTab));
     setAllFileTabs((prevFileTabs) => [...prevFileTabs, newFileTab]);
+
+    // Make that new tab active
+    setActiveFileTab((prevActiveFileTab) =>
+      prevActiveFileTab === newFileTab._id ? null : newFileTab._id,
+    );
   };
 
-  const handleCloseFileTabs = (tabIndex: number) => {
-    const requiredFileTab = `${tabIndex}`;
+  const handleCloseFileTabs = (tabId: number) => {
+    const requiredFileTabId = `${tabId}`;
+
     const newFileTabs = allFileTabs.filter((fileTab) => {
-      return fileTab._id !== requiredFileTab;
+      return fileTab._id !== requiredFileTabId;
     });
     setAllFileTabs(newFileTabs);
 
     //reset active state
-    if (activeFileTab === tabIndex) setActiveFileTab(null);
+    if (activeFileTab === tabId) setActiveFileTab(null);
   };
 
   return (

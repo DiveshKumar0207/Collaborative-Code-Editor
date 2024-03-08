@@ -12,20 +12,26 @@ const Terminal: React.FC<Props> = ({ editorWidth }) => {
 
   function handleTerminalOpen() {
     const terminalElement = terminalRef.current;
-    if (isTerminalOpen == false) {
+    if (isTerminalOpen == false && terminalHeight == 0) {
       terminalElement!.classList.remove("hidden");
       SetIsTerminalOpen(true);
       SetTerminalHeight(240);
     } else {
       terminalElement!.classList.add("hidden");
+      SetTerminalHeight(0);
       SetIsTerminalOpen(false);
     }
   }
 
   function moveTo(e: MouseEvent) {
+    const terminalElement = terminalRef.current;
     const newTerminalHeight = window.innerHeight - e.clientY;
 
+    terminalElement!.classList.remove("hidden");
+
     if (newTerminalHeight <= 15) {
+      terminalElement!.classList.add("hidden");
+      SetTerminalHeight(() => 0);
       SetIsTerminalOpen(() => false);
     }
 
@@ -48,7 +54,8 @@ const Terminal: React.FC<Props> = ({ editorWidth }) => {
   return (
     <>
       <div
-        className="absolute bottom-0 left-9"
+        className="absolute bottom-0 left-[56px]"
+        role="Terminal"
         style={{
           width: `${editorWidth}`,
         }}
@@ -60,11 +67,11 @@ const Terminal: React.FC<Props> = ({ editorWidth }) => {
         ></div>
         {/* ---------------- Terminal ------------------- */}
         <div
-          className={`border-t border-[rgba(255,255,255,0.1)] bg-[#212121] px-4 py-2 text-textColor-medium`}
+          className={`border-t border-[rgba(255,255,255,0.2)] bg-backgroundColor-dark-secondary  text-textColor-medium`}
         >
           {/* Terminal Header */}
-          <div className=" flex h-6 items-center justify-between font-body text-textColor-high">
-            <div className=" select-none text-sm font-thin">TERMINAL</div>
+          <div className=" flex items-center justify-between border-b border-[rgba(255,255,255,0.2)] px-4 py-2 font-body text-textColor-high">
+            <div className="h-full select-none text-sm font-thin">TERMINAL</div>
 
             <div className="cursor-pointer" onClick={handleTerminalOpen}>
               <ChevronUpIcon strokeWidth={2} className="h-5 w-5" />
@@ -73,11 +80,22 @@ const Terminal: React.FC<Props> = ({ editorWidth }) => {
 
           {/* Terminal Workspace */}
           <div
-            className="w-full"
+            spellCheck="false"
+            autoCorrect="off"
+            autoCapitalize="off"
+            data-gramm="false"
+            data-gramm_editor="false"
+            data-enabled-grammarly="false"
+            translate="no"
+            role="terminal"
+            className="w-full px-4 py-2 text-sm"
             style={{ height: `${terminalHeight}px` }}
             ref={terminalRef}
           >
             <textarea
+              data-gramm="false"
+              data-gramm_editor="false"
+              data-enabled-grammarly="false"
               name="terminalInput"
               className="h-full w-full resize-none bg-transparent outline-none"
             ></textarea>

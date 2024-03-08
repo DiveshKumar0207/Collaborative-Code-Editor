@@ -11,7 +11,7 @@ import WorkspaceContext from "../../../context/workspace/WorkspaceContext";
 
 const validationSchema = Yup.object({
   filename: Yup.string()
-    .min(3, "Minimum character length is 3")
+    .min(1, "Minimum character length is 1")
     .required("File's name required"),
   file_extention: Yup.string().required("extention is required"),
 });
@@ -151,7 +151,7 @@ const AddFileForm: React.FC<Props> = () => {
                             <div>
                               <Field
                                 as={Input}
-                                label=".extention"
+                                label={`File extention. Eg : '.cpp', '.html' `}
                                 name="file_extention"
                               />
                               <div className=" flex h-6 items-center justify-end pr-2 text-sm text-errorColor-light">
