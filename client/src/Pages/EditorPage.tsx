@@ -65,7 +65,10 @@ const EditorPage: React.FC<Props> = () => {
     >
       {/* Header */}
       <div className="z-50 flex h-10 select-none bg-backgroundColor-dark px-2">
-        <div className="flex h-full w-10 cursor-pointer items-center justify-center text-center font-semibold text-textColor-high">
+        <div
+          aria-haspopup="true"
+          className="flex h-full w-10 cursor-pointer items-center justify-center text-center font-semibold text-textColor-high"
+        >
           <Bars3Icon className=" h-6 w-6 font-semibold" />
         </div>
         <ul className="flex h-full items-center justify-start gap-3 pl-1 text-sm text-textColor-medium">
@@ -119,6 +122,7 @@ const EditorPage: React.FC<Props> = () => {
         {/* CHAT AREA, FILES SECTION */}
         <div
           className="flex h-full min-w-[20%] flex-grow rounded-lg bg-overlayDarkColors-dp06"
+          aria-live="polite"
           ref={chatRef}
         ></div>
       </div>

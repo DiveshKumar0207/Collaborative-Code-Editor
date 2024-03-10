@@ -13,7 +13,10 @@ export default withMT({
   theme: {
     extend: {
       fontFamily: {
-        "Frank Ruhl Libre": ["Frank Ruhl Libre", "sans-serif"],
+        FrankRuhlLibre: ["FrankRuhlLibre", "sans-serif"],
+        Consola: ["Consola", "sans-serif"],
+        Nunito: ["Nunito", "sans-serif"],
+        Inter: ["Inter", "sans-serif"],
       },
       screens: {
         "md-max": { max: "720px" },

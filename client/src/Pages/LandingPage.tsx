@@ -19,16 +19,14 @@ const LandingPage: React.FC<Props> = () => {
               Execution!
             </div>
             <div className=" p-3 text-center text-lg">
-              <span className="font-Frank Ruhl Libre font-bold text-pink-600">
+              <span className="font-FrankRuhlLibre font-bold text-pink-600">
                 RUST
               </span>
-              <span className="font-['Inter'] font-semibold text-pink-600">
-                {" "}
-              </span>
-              <span className=" font-['Nunito'] font-medium text-gray-900">
+              <span className="font-Inter font-semibold text-pink-600"> </span>
+              <span className=" font-Nunito font-medium text-gray-900">
                 powered servers for fast and seamless experiences.
               </span>
-              <span className="font-['Inter'] font-medium text-black"> </span>
+              <span className="font-Inter font-medium text-black"> </span>
             </div>
           </div>
           {/* END INTRO */}

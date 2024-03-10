@@ -89,18 +89,11 @@ const Terminal: React.FC<Props> = ({ editorWidth }) => {
             data-enabled-grammarly="false"
             translate="no"
             role="terminal"
-            className="w-full px-4 py-2 text-sm"
+            className="custom-y-scrollbar w-full whitespace-break-spaces break-words px-4 py-2 font-Consola text-sm outline-none"
+            contentEditable="true"
             style={{ height: `${terminalHeight}px` }}
             ref={terminalRef}
-          >
-            <textarea
-              data-gramm="false"
-              data-gramm_editor="false"
-              data-enabled-grammarly="false"
-              name="terminalInput"
-              className="h-full w-full resize-none bg-transparent outline-none"
-            ></textarea>
-          </div>
+          ></div>
         </div>
       </div>
     </>
