@@ -1,7 +1,7 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import React, { useContext } from "react";
 import AddFileForm from "./AddFileForm";
-import WorkspaceContext from "../../../context/workspace/WorkspaceContext";
+import WorkspaceContext from "../../../../context/workspace/WorkspaceContext";
 
 interface Props {}
 
@@ -77,7 +77,7 @@ const EditorHeader: React.FC<Props> = () => {
         <AddFileForm />
 
         <div
-          className="mx-2 box-border flex h-7 w-7 cursor-pointer select-none items-center justify-center rounded-sm bg-overlayDarkColors-dp01 p-2 text-xl font-semibold text-textColor-high hover:bg-overlayDarkColors-dp06"
+          className="mx-2 box-border flex h-7 w-7 select-none items-center justify-center rounded-sm bg-overlayDarkColors-dp01 p-2 text-xl font-semibold text-textColor-high hover:bg-overlayDarkColors-dp06"
           onClick={openAddNewFileModal}
         >
           +

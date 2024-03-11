@@ -1,8 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import Terminal from "../components/workspace/terminal/Terminal";
 import EditorArea from "../components/workspace/editor/editorArea";
-import EditorHeader from "../components/workspace/fileTabs/EditorHeader";
-import { Bars3Icon } from "@heroicons/react/24/outline";
+import EditorHeader from "../components/workspace/editor/fileTabs/EditorHeader";
+import {
+  Bars3Icon,
+  ArrowLeftOnRectangleIcon,
+} from "@heroicons/react/24/outline";
+import { Button } from "@material-tailwind/react";
+import ChatContainer from "../components/workspace/chatbox/ChatContainer";
 
 interface Props {}
 
@@ -60,43 +65,62 @@ const EditorPage: React.FC<Props> = () => {
 
   return (
     <div
-      className="font fixed h-full max-h-screen w-[100vw] bg-backgroundColor-dark "
+      className="
+      font-Ubuntu fixed m-0 box-border flex h-screen w-screen flex-col bg-backgroundColor-dark p-0"
       style={{ fontFamily: "Ubuntu" }}
     >
       {/* Header */}
-      <div className="z-50 flex h-10 select-none bg-backgroundColor-dark px-2">
-        <div
-          aria-haspopup="true"
-          className="flex h-full w-10 cursor-pointer items-center justify-center text-center font-semibold text-textColor-high"
-        >
-          <Bars3Icon className=" h-6 w-6 font-semibold" />
+      <div className="z-50 flex h-10 select-none items-center justify-between bg-backgroundColor-dark px-2 text-textColor-medium">
+        <div className="flex">
+          <div
+            aria-haspopup="true"
+            className="flex h-full w-10 cursor-pointer justify-center text-center font-semibold text-textColor-high"
+          >
+            <Bars3Icon className=" h-6 w-6 font-semibold" />
+          </div>
+          <ul className="flex h-full items-center justify-start gap-3 pl-1 text-sm ">
+            <li className="inline cursor-pointer hover:text-textColor-high">
+              New File
+            </li>
+            <li className="inline cursor-pointer hover:text-textColor-high">
+              Share
+            </li>
+            <li className="inline cursor-pointer hover:text-textColor-high">
+              Sync
+            </li>
+          </ul>
         </div>
-        <ul className="flex h-full items-center justify-start gap-3 pl-1 text-sm text-textColor-medium">
-          <li className="inline cursor-pointer hover:text-textColor-high">
-            New File
-          </li>
-          <li className="inline cursor-pointer hover:text-textColor-high">
-            Share
-          </li>
-          <li className="inline cursor-pointer hover:text-textColor-high">
-            Sync
-          </li>
-        </ul>
+
+        <div className="">
+          <Button
+            placeholder={undefined}
+            role="button"
+            name="runCode"
+            aria-roledescription="Run code"
+            size="sm"
+            color="green"
+          >
+            RUN
+          </Button>
+        </div>
+
+        <div className="hover:text-textColor-high">
+          <ArrowLeftOnRectangleIcon className="h-6 w-6 font-semibold" />
+        </div>
       </div>
 
       {/* Container of editor + chatbox */}
-      {/* //! as using offset... here i use margin, but unexpected behaviour by chatareadiv seems crossed viewport. but same i use with padding here than it wont affect chatbotdiv, but rather now  will affect the partition nd width in center. */}
       <div
-        className="mx-2 flex h-full w-full flex-auto gap-1"
+        className="mx-2 flex h-[calc(100%_-_2.5rem)] flex-auto gap-1"
         ref={containerRef}
       >
         {/* IDE Section  */}
         <div
-          className="flex h-full rounded-md"
+          className="flex rounded-md"
           style={{ width: `${editorWidth}px` }}
           ref={editorRef}
         >
-          <div className="h-full w-full">
+          <div className="h-full w-full ">
             {/* Files names and tabs and selection */}
             <EditorHeader />
 
@@ -113,18 +137,15 @@ const EditorPage: React.FC<Props> = () => {
         {/* Virtual divider to seperate worksapce*/}
         <div className={` flex h-full w-[2px] items-center`}>
           <div
-            className={`h-28 w-[1.5px]  cursor-ew-resize bg-blue-700 px-[1px] opacity-70 hover:opacity-100
+            className={`h-28 w-[1px]  cursor-ew-resize bg-blue-700 px-[1px] opacity-80 hover:opacity-100
             `}
             onMouseDown={handleMouseDown}
           ></div>
         </div>
 
         {/* CHAT AREA, FILES SECTION */}
-        <div
-          className="flex h-full min-w-[20%] flex-grow rounded-lg bg-overlayDarkColors-dp06"
-          aria-live="polite"
-          ref={chatRef}
-        ></div>
+
+        <ChatContainer chatRef={chatRef} />
       </div>
     </div>
   );

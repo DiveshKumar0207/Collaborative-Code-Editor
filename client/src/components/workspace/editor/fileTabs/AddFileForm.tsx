@@ -7,7 +7,7 @@ import { Fragment, useContext } from "react";
 import { Button, Input } from "@material-tailwind/react";
 import { Formik, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import WorkspaceContext from "../../../context/workspace/WorkspaceContext";
+import WorkspaceContext from "../../../../context/workspace/WorkspaceContext";
 
 const validationSchema = Yup.object({
   filename: Yup.string()

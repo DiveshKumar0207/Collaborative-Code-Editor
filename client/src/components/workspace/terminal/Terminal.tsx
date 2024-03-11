@@ -89,11 +89,26 @@ const Terminal: React.FC<Props> = ({ editorWidth }) => {
             data-enabled-grammarly="false"
             translate="no"
             role="terminal"
-            className="custom-y-scrollbar w-full whitespace-break-spaces break-words px-4 py-2 font-Consola text-sm outline-none"
-            contentEditable="true"
+            className="custom-y-scrollbar flex w-full whitespace-break-spaces break-words px-4 py-2 font-Consola outline-none"
             style={{ height: `${terminalHeight}px` }}
             ref={terminalRef}
-          ></div>
+          >
+            <span className="font-Ubuntu inline-flex w-48 text-green-700">
+              raman@raman-pc <span className="text-textColor-high">:</span>~
+              <span className="text-textColor-high">$</span>
+            </span>
+            <div
+              contentEditable="true"
+              autoCorrect="off"
+              spellCheck="false"
+              autoCapitalize="off"
+              data-gramm="false"
+              data-gramm_editor="false"
+              data-enabled-grammarly="false"
+              translate="no"
+              className=" h-min w-full whitespace-break-spaces  break-words outline-none"
+            ></div>
+          </div>
         </div>
       </div>
     </>

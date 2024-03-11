@@ -2,7 +2,7 @@ import React from "react";
 
 interface Props {}
 
-const Navbar: React.FC<Props> = () => {
+const Header: React.FC<Props> = () => {
   return (
     <>
       <div className="mb-16  flex h-[90px] w-[100%] items-center justify-center bg-backgroundColor-dark">
@@ -15,4 +15,4 @@ const Navbar: React.FC<Props> = () => {
   );
 };
 
-export default Navbar;
+export default Header;

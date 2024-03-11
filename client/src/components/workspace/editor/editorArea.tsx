@@ -18,7 +18,7 @@ const EditorArea: FC<Props> = () => {
 
         if (newLinesNumbers != noOfCodeLines) {
           setNoOfCodeLines((prevTotalLines) => {
-            console.log("prev lines : ", prevTotalLines);
+            // console.log("prev lines : ", prevTotalLines);
             return newLinesNumbers;
           });
         }
@@ -39,7 +39,7 @@ const EditorArea: FC<Props> = () => {
       shiftKey: false,
       code: "13",
     });
-    console.log(syntheticEvent);
+    // console.log(syntheticEvent);
 
     window.dispatchEvent(syntheticEvent);
 
@@ -82,13 +82,12 @@ const EditorArea: FC<Props> = () => {
 
   return (
     <>
-      <div className="flex h-full w-full bg-overlayDarkColors-dp06 pb-32">
-        <div className="custom-y-scrollbar flex h-full w-full flex-shrink  whitespace-break-spaces break-words rounded-tr-lg p-4 font-Consola leading-relaxed text-textColor-medium outline-none">
+      <div className="flex h-[calc(100%_-_2.25rem)] w-full bg-overlayDarkColors-dp06 pb-12">
+        <div className="custom-y-scrollbar flex h-full w-full flex-shrink whitespace-break-spaces  break-words rounded-tr-lg p-4 font-Consola leading-relaxed text-textColor-medium outline-none">
           <div
             className="h-min w-max select-none pl-2 pr-6 text-end text-textColor-medium"
             aria-hidden="true"
           >
-            {/* <div key={1}>1</div> */}
             {noOfCodeLines &&
               [...Array(noOfCodeLines)].map((_, index) => (
                 <div key={index}>{index + 1}</div>
@@ -96,7 +95,7 @@ const EditorArea: FC<Props> = () => {
           </div>
 
           <div
-            className="h-min w-full  font-Consola outline-none"
+            className="h-min w-full font-Consola outline-none"
             role="code input"
             contentEditable="true"
             spellCheck="false"

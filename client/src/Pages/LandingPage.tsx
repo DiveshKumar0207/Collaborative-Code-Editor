@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../components/Navbar";
+import Header from "../components/homePage/Header";
 import FeaturePart from "../components/homePage/Feature";
 import Button_homePage from "../components/homePage/Button-HomePage";
 
@@ -8,7 +8,7 @@ interface Props {}
 const LandingPage: React.FC<Props> = () => {
   return (
     <>
-      <Navbar />
+      <Header />
 
       <div>
         <div>

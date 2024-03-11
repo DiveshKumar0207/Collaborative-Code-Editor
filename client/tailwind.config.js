@@ -17,6 +17,7 @@ export default withMT({
         Consola: ["Consola", "sans-serif"],
         Nunito: ["Nunito", "sans-serif"],
         Inter: ["Inter", "sans-serif"],
+        Ubuntu: ["Ubuntu", "sans-serif"],
       },
       screens: {
         "md-max": { max: "720px" },
