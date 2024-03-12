@@ -66,7 +66,7 @@ const EditorPage: React.FC<Props> = () => {
   return (
     <div
       className="
-      font-Ubuntu fixed m-0 box-border flex h-screen w-screen flex-col bg-backgroundColor-dark p-0"
+      fixed m-0 box-border flex h-screen w-screen flex-col bg-backgroundColor-dark p-0 font-Ubuntu"
       style={{ fontFamily: "Ubuntu" }}
     >
       {/* Header */}
@@ -137,7 +137,7 @@ const EditorPage: React.FC<Props> = () => {
         {/* Virtual divider to seperate worksapce*/}
         <div className={` flex h-full w-[2px] items-center`}>
           <div
-            className={`h-28 w-[1px]  cursor-ew-resize bg-blue-700 px-[1px] opacity-80 hover:opacity-100
+            className={`h-28 w-[1.5px]  cursor-ew-resize bg-blue-700 px-[1px] opacity-80 hover:opacity-100
             `}
             onMouseDown={handleMouseDown}
           ></div>

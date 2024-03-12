@@ -93,7 +93,7 @@ const Terminal: React.FC<Props> = ({ editorWidth }) => {
             style={{ height: `${terminalHeight}px` }}
             ref={terminalRef}
           >
-            <span className="font-Ubuntu inline-flex w-48 text-green-700">
+            <span className="inline-flex w-48 font-Ubuntu text-green-600">
               raman@raman-pc <span className="text-textColor-high">:</span>~
               <span className="text-textColor-high">$</span>
             </span>

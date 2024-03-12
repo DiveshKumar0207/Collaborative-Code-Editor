@@ -2,6 +2,8 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import React, { useContext } from "react";
 import AddFileForm from "./AddFileForm";
 import WorkspaceContext from "../../../../context/workspace/WorkspaceContext";
+// import angularSvg from "../../../../../assets/logos/angular.svg";
+import matchLogos from "../../../../utils/logos";
 
 interface Props {}
 
@@ -23,7 +25,8 @@ const EditorHeader: React.FC<Props> = () => {
 
   const renderTabs = () => {
     return allFileTabs.map((fileTab) => {
-      console.log("id and length : ", fileTab._id, allFileTabs.length);
+      const logo = matchLogos(fileTab.file_extention);
+
       return (
         <div
           key={fileTab._id}
@@ -37,17 +40,17 @@ const EditorHeader: React.FC<Props> = () => {
         >
           {/* Icon for file type */}
           <span className=" flex h-full w-6 select-none items-center justify-center font-semibold">
-            m
+            <img src={logo} className="h-5 w-5" alt="X" />
           </span>
 
           {/* File's name */}
-          <span className="flex h-full items-center">
+          <span className="mx-2 flex h-full items-center">
             {`${fileTab.filename}.${fileTab.file_extention}`}
           </span>
 
           {/* Close the file */}
           <div
-            className="ml-2 flex h-full select-none items-center justify-center rounded-md p-1 font-semibold hover:bg-overlayDarkColors-dp06"
+            className="flex h-full select-none items-center justify-center rounded-md p-1 font-semibold hover:bg-overlayDarkColors-dp06"
             onClick={() => {
               handleCloseFileTabs(fileTab._id);
             }}
@@ -77,7 +80,7 @@ const EditorHeader: React.FC<Props> = () => {
         <AddFileForm />
 
         <div
-          className="mx-2 box-border flex h-7 w-7 select-none items-center justify-center rounded-sm bg-overlayDarkColors-dp01 p-2 text-xl font-semibold text-textColor-high hover:bg-overlayDarkColors-dp06"
+          className="mx-2 box-border flex h-7 w-7 select-none items-center justify-center rounded-sm bg-overlayDarkColors-dp01 p-2 text-xl text-textColor-high hover:bg-overlayDarkColors-dp06"
           onClick={openAddNewFileModal}
         >
           +

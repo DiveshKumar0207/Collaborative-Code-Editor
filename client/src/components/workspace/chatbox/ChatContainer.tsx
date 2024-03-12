@@ -43,7 +43,7 @@ const ChatContainer: FC<Props> = ({ chatRef }) => {
                   aria-roledescription="Send Message"
                   className={`!absolute right-1 top-3 cursor-pointer `}
                 >
-                  <PaperAirplaneIcon className="h-5 w-5 text-teal-800" />
+                  <PaperAirplaneIcon className="h-5 w-5 text-teal-700 hover:text-teal-400 active:text-teal-600" />
                 </div>
               </div>
             </div>
