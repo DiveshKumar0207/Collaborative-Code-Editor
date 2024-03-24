@@ -2,7 +2,6 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import React, { useContext } from "react";
 import AddFileForm from "./AddFileForm";
 import WorkspaceContext from "../../../../context/workspace/WorkspaceContext";
-// import angularSvg from "../../../../../assets/logos/angular.svg";
 import matchLogos from "../../../../utils/logos";
 
 interface Props {}
@@ -17,48 +16,49 @@ const EditorHeader: React.FC<Props> = () => {
 
   const {
     openAddNewFileModal,
-    activeFileTab,
-    allFileTabs,
-    handleCloseFileTabs,
-    handleFileTabActive,
+    activeFile,
+    allFile,
+    handleFileClose,
+    handleActiveFile,
   } = workspaceContext;
 
   const renderTabs = () => {
-    return allFileTabs.map((fileTab) => {
+    return allFile.map((fileTab) => {
       const logo = matchLogos(fileTab.file_extention);
 
       return (
         <div
           key={fileTab._id}
           className={` ${
-            activeFileTab === fileTab._id
+            activeFile === fileTab._id
               ? "active-top-border bg-overlayDarkColors-dp06 text-textColor-high"
               : "text-textColor-medium"
           }
-           group box-border flex h-9 cursor-pointer items-center justify-center border-r border-t border-[rgba(255,255,255,0.2)]  p-2 text-sm`}
-          onClick={() => handleFileTabActive(fileTab._id)}
+           group box-border flex h-9 cursor-default items-center justify-center border-r border-t border-[rgba(255,255,255,0.2)]  p-2 text-sm`}
         >
           {/* Icon for file type */}
-          <span className=" flex h-full w-6 select-none items-center justify-center font-semibold">
-            <img src={logo} className="h-5 w-5" alt="X" />
-          </span>
+          <div className="flex" onClick={() => handleActiveFile(fileTab._id)}>
+            <span className=" flex h-full w-6 select-none items-center justify-center font-semibold">
+              <img src={logo} className="h-5 w-5" alt="X" />
+            </span>
 
-          {/* File's name */}
-          <span className="mx-2 flex h-full items-center">
-            {`${fileTab.filename}.${fileTab.file_extention}`}
-          </span>
+            {/* File's name */}
+            <span className="mx-2 flex h-full items-center">
+              {`${fileTab.filename}${fileTab.file_extention}`}
+            </span>
+          </div>
 
           {/* Close the file */}
           <div
-            className="flex h-full select-none items-center justify-center rounded-md p-1 font-semibold hover:bg-overlayDarkColors-dp06"
+            className="flex h-full cursor-pointer select-none items-center justify-center rounded-md p-1 font-semibold hover:bg-overlayDarkColors-dp06"
             onClick={() => {
-              handleCloseFileTabs(fileTab._id);
+              handleFileClose(fileTab._id);
             }}
           >
             <XMarkIcon
               strokeWidth={2.5}
               className={`h-4 w-4 font-semibold ${
-                activeFileTab === fileTab._id
+                activeFile === fileTab._id
                   ? "visible"
                   : "invisible group-hover:visible"
               }`}

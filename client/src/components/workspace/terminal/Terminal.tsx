@@ -12,6 +12,7 @@ const Terminal: React.FC<Props> = ({ editorWidth }) => {
 
   function handleTerminalOpen() {
     const terminalElement = terminalRef.current;
+    
     if (isTerminalOpen == false && terminalHeight == 0) {
       terminalElement!.classList.remove("hidden");
       SetIsTerminalOpen(true);

@@ -33,7 +33,7 @@ const AddFileForm: React.FC<Props> = () => {
     );
   }
 
-  const { isAddNewFileModal, closeAddNewFileModal, handleAddFileTabs } =
+  const { isAddNewFileModal, closeAddNewFileModal, handleAddFile } =
     workspaceContext;
 
   const initialValues: Values = {
@@ -47,7 +47,7 @@ const AddFileForm: React.FC<Props> = () => {
   ) => {
     // Handle  submission logic here()
 
-    handleAddFileTabs(values);
+    handleAddFile(values);
 
     setSubmitting(false);
     closeAddNewFileModal();

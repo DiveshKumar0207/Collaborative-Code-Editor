@@ -1,6 +1,9 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useRef, useState } from "react";
 import WorkspaceContext from "./WorkspaceContext";
-import { addFileFormValues, filesTab } from "../interfaces/workspaceInterfaces";
+import {
+  addFileFormValues,
+  filesType,
+} from "../interfaces/workspaceInterfaces";
 
 // Create a context provider component
 interface MyContextProviderProps {
@@ -20,40 +23,138 @@ const WorkspaceStates: React.FC<MyContextProviderProps> = ({ children }) => {
 
   // --------------- Horizontal files tab  --------------------------------------------------------
 
-  const [activeFileTab, setActiveFileTab] = useState<number | null>(null);
-  const [allFileTabs, setAllFileTabs] = useState<filesTab[]>([]);
+  const [activeFile, setActiveFile] = useState<string | null>(null);
+  const [allFile, setAllFile] = useState<filesType[]>([]);
+  const editorBoxRef = useRef<HTMLDivElement>(null);
 
-  const handleFileTabActive = (tabId: number) => {
-    setActiveFileTab((prevActiveFileTab) =>
-      prevActiveFileTab === tabId ? null : tabId,
-    );
+  // ----------- EditorArea component file states ---------
+  const [noOfCodeLines, setNoOfCodeLines] = useState<number>(1);
+  // const editorBoxRef = useRef<HTMLDivElement>(null);
+
+  const handleLineCount = () => {
+    const editorArea = editorBoxRef!.current;
+    const lineHeight = 26; //should do dynamic in future //for now i checked this in css of code
+
+    if (editorArea) {
+      // Use requestAnimationFrame to ensure that any updates to the DOM are applied before the next frame is rendered.
+      requestAnimationFrame(() => {
+        const editorHeight = editorArea.clientHeight;
+        const newLinesNumbers = Math.floor(editorHeight / lineHeight);
+
+        if (newLinesNumbers != noOfCodeLines) {
+          setNoOfCodeLines(() => {
+            return newLinesNumbers;
+          });
+        }
+      });
+    }
   };
 
-  const handleAddFileTabs = (values: addFileFormValues) => {
-    const newFileTab = {
-      ...values,
-      _id: `${allFileTabs.length + 1}`,
+  const onPasteHandleLineCount = () => {
+    handleLineCount();
+  };
+
+  const handleEditorKeys = (e: React.KeyboardEvent): void => {
+    switch (e.key) {
+      case "Enter":
+        handleLineCount();
+        break;
+      case "Backspace":
+        handleLineCount();
+        break;
+      case "Delete":
+        handleLineCount();
+        break;
+      default:
+        return;
+    }
+  };
+
+  // ----------------------------
+
+  const handleActiveFile = (fileId: string) => {
+    setActiveFile((prevActiveFileTab) =>
+      prevActiveFileTab == fileId ? null : fileId,
+    );
+    handleValueOnFileOpen(fileId);
+  };
+
+  const handleValueOnFileOpen = (fileId: string) => {
+    const editor = editorBoxRef!.current;
+
+    // setting value of editor with respect to file opened/active
+    allFile.filter((file) => {
+      if (file._id === fileId) {
+        if (editor) {
+          editor.textContent = file.file_data || "";
+        }
+      }
+    });
+  };
+
+  const handleAddFile = (values: addFileFormValues) => {
+    const { filename, file_extention, file_data } = values;
+    const editor = editorBoxRef!.current;
+
+    const newFile = {
+      filename,
+      file_extention,
+      file_data: file_data || " ",
+      _id: `${allFile.length + 1}`,
     };
 
-    // setAllFileTabs(allFileTabs.concat(newFileTab));
-    setAllFileTabs((prevFileTabs) => [...prevFileTabs, newFileTab]);
+    setAllFile((prevFiles) => [...prevFiles, newFile]);
 
     // Make that new tab active
-    setActiveFileTab((prevActiveFileTab) =>
-      prevActiveFileTab === newFileTab._id ? null : newFileTab._id,
+    setActiveFile((prevActiveFile) =>
+      prevActiveFile == newFile._id ? null : newFile._id,
     );
+
+    if (editor) {
+      editor.textContent = " ";
+    }
+    handleLineCount();
   };
 
-  const handleCloseFileTabs = (tabId: number) => {
-    const requiredFileTabId = `${tabId}`;
+  // const debounce = (func: Function, delay: number) => {
+  //   let timeoutId: ReturnType<typeof setTimeout>;
 
-    const newFileTabs = allFileTabs.filter((fileTab) => {
+  //   return (...args: any[]) => {
+  //     clearTimeout(timeoutId);
+  //     timeoutId = setTimeout(() => {
+  //       func(...args);
+  //     }, delay);
+  //   };
+  // };
+
+  const handleFileData = (
+    fileId: string,
+    event: React.ChangeEvent<HTMLDivElement>,
+  ) => {
+    let value = event.currentTarget?.textContent;
+    if (value == undefined || value == null) {
+      value = "";
+    }
+
+    // filter to get the activeFile and setting activeFile's state i.e. file.file_data +=value
+    allFile.filter((file) => {
+      if (file._id === fileId) {
+        file.file_data = value;
+      }
+    });
+  };
+
+  const handleFileClose = (fileId: string) => {
+    const requiredFileTabId = `${fileId}`;
+
+    const newFileTabs = allFile.filter((fileTab) => {
       return fileTab._id !== requiredFileTabId;
     });
-    setAllFileTabs(newFileTabs);
+    setAllFile(() => newFileTabs);
 
-    //reset active state
-    if (activeFileTab === tabId) setActiveFileTab(null);
+    if (activeFile === fileId) {
+      setActiveFile(null); // Reset to null only if the active file matches the closed file
+    }
   };
 
   return (
@@ -62,11 +163,17 @@ const WorkspaceStates: React.FC<MyContextProviderProps> = ({ children }) => {
         isAddNewFileModal,
         closeAddNewFileModal,
         openAddNewFileModal,
-        activeFileTab,
-        allFileTabs,
-        handleAddFileTabs,
-        handleCloseFileTabs,
-        handleFileTabActive,
+        activeFile,
+        editorBoxRef,
+        allFile,
+        handleAddFile,
+        handleFileData,
+        handleFileClose,
+        handleActiveFile,
+        onPasteHandleLineCount,
+        handleEditorKeys,
+        handleLineCount,
+        noOfCodeLines,
       }}
     >
       {children}
